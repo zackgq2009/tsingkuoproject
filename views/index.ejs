@@ -13,7 +13,7 @@
   <meta name="application-name" content="tsingkuo.com">
 
   <!-- Bootstrap Core CSS -->
-  <link href="/stylesheets/bootstrap.min.css" rel="stylesheet">
+  <link href="/stylesheets/bootstrap.css" rel="stylesheet">
 
   <!-- Custom CSS -->
   <link href="/stylesheets/modern-business.css" rel="stylesheet">
@@ -54,92 +54,8 @@
 </head>
 
 <body>
-
-<!-- Navigation -->
-<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
-  <div class="container">
-    <!-- Brand and toggle get grouped for better mobile display -->
-    <div class="navbar-header">
-      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
-        <span class="sr-only">Toggle navigation</span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-      </button>
-      <a class="navbar-brand" href="/"><%= navbarHome%></a>
-    </div>
-    <!-- Collect the nav links, forms, and other content for toggling -->
-    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-      <ul class="nav navbar-nav navbar-right">
-        <li>
-          <a href="about">About</a>
-        </li>
-        <li>
-          <a href="services.html">Services</a>
-        </li>
-        <li>
-          <a href="contact.html">Contact</a>
-        </li>
-        <li class="dropdown">
-          <a href="#" class="dropdown-toggle" data-toggle="dropdown">Portfolio <b class="caret"></b></a>
-          <ul class="dropdown-menu">
-            <li>
-              <a href="portfolio-1-col.html">1 Column Portfolio</a>
-            </li>
-            <li>
-              <a href="portfolio-2-col.html">2 Column Portfolio</a>
-            </li>
-            <li>
-              <a href="portfolio-3-col.html">3 Column Portfolio</a>
-            </li>
-            <li>
-              <a href="portfolio-4-col.html">4 Column Portfolio</a>
-            </li>
-            <li>
-              <a href="portfolio-item.html">Single Portfolio Item</a>
-            </li>
-          </ul>
-        </li>
-        <li class="dropdown">
-          <a href="#" class="dropdown-toggle" data-toggle="dropdown">Blog <b class="caret"></b></a>
-          <ul class="dropdown-menu">
-            <li>
-              <a href="blog-home-1.html">Blog Home 1</a>
-            </li>
-            <li>
-              <a href="blog-home-2.html">Blog Home 2</a>
-            </li>
-            <li>
-              <a href="blog-post.html">Blog Post</a>
-            </li>
-          </ul>
-        </li>
-        <li class="dropdown">
-          <a href="#" class="dropdown-toggle" data-toggle="dropdown">Other Pages <b class="caret"></b></a>
-          <ul class="dropdown-menu">
-            <li>
-              <a href="full-width.html">Full Width Page</a>
-            </li>
-            <li>
-              <a href="sidebar.html">Sidebar Page</a>
-            </li>
-            <li>
-              <a href="faq.html">FAQ</a>
-            </li>
-            <li>
-              <a href="404.html">404</a>
-            </li>
-            <li>
-              <a href="pricing.html">Pricing Table</a>
-            </li>
-          </ul>
-        </li>
-      </ul>
-    </div>
-    <!-- /.navbar-collapse -->
-  </div>
-  <!-- /.container -->
-</nav>
+<div class="container-background">
+<% include navbar.ejs%>
 
 <!-- Header Carousel -->
 <header id="myCarousel" class="carousel slide">
@@ -153,21 +69,21 @@
   <!-- Wrapper for slides -->
   <div class="carousel-inner">
     <div class="item active">
-      <div class="fill" style="background-image:url('http://placehold.it/1900x1080&text=Slide One');"></div>
+      <div class="fill" style="background-image:url('http://placehold.it/1900x1080&text=Slide One');"><img src="/images/wrapper/life.jpg"></div>
       <div class="carousel-caption">
-        <h2>Caption 1</h2>
+        <h2>生活</h2>
       </div>
     </div>
     <div class="item">
-      <div class="fill" style="background-image:url('http://placehold.it/1900x1080&text=Slide Two');"></div>
+      <div class="fill" style="background-image:url('http://placehold.it/1900x1080&text=Slide Two');"><img src="/images/wrapper/work.jpg"></div>
       <div class="carousel-caption">
-        <h2>Caption 2</h2>
+        <h2>工作</h2>
       </div>
     </div>
     <div class="item">
-      <div class="fill" style="background-image:url('http://placehold.it/1900x1080&text=Slide Three');"></div>
+      <div class="fill" style="background-image:url('http://placehold.it/1900x1080&text=Slide Three');"><img src="/images/wrapper/study.jpg"></div>
       <div class="carousel-caption">
-        <h2>Caption 3</h2>
+        <h2>学习</h2>
       </div>
     </div>
   </div>
@@ -182,22 +98,22 @@
 </header>
 
 <!-- Page Content -->
-<div class="container">
+<div class="container container-background">
 
   <!-- Marketing Icons Section -->
   <div class="row">
     <div class="col-lg-12">
       <h1 class="page-header">
-        Welcome to Modern Business
+        Welcome to TsingKuo
       </h1>
     </div>
     <div class="col-md-4">
       <div class="panel panel-default">
         <div class="panel-heading">
-          <h4><i class="fa fa-fw fa-check"></i> Bootstrap v3.2.0</h4>
+          <h4><i class="fa fa-fw fa-check"></i> 生活经历</h4>
         </div>
         <div class="panel-body">
-          <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Itaque, optio corporis quae nulla aspernatur in alias at numquam rerum ea excepturi expedita tenetur assumenda voluptatibus eveniet incidunt dicta nostrum quod?</p>
+          <p>在上海已经八个年头，在这八年中经历了许许多多。从我刚毕业开始找工作、第一次换工作、第一次合租房子、第一次在网上交友、有了女朋友、直到与女朋友订婚、结婚。到现在已经跟我心爱的菇凉结婚两年多了~~~</p>
           <a href="#" class="btn btn-default">Learn More</a>
         </div>
       </div>
@@ -205,10 +121,10 @@
     <div class="col-md-4">
       <div class="panel panel-default">
         <div class="panel-heading">
-          <h4><i class="fa fa-fw fa-gift"></i> Free &amp; Open Source</h4>
+          <h4><i class="fa fa-fw fa-gift"></i> 工作经验 &amp; 工作技能</h4>
         </div>
         <div class="panel-body">
-          <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Itaque, optio corporis quae nulla aspernatur in alias at numquam rerum ea excepturi expedita tenetur assumenda voluptatibus eveniet incidunt dicta nostrum quod?</p>
+          <p>现在的工作岗位已经是我的第五家公司，也是至今最让我满意的！之前在代工企业、外包公司、小型私有企业、大型国有企业都工作过，积累了一定量的工作经验！现在的公司虽然不大，但是由于工作中总会遇到新的技术、新的挑战，所以工作总是充满了动力！</p>
           <a href="#" class="btn btn-default">Learn More</a>
         </div>
       </div>
@@ -216,10 +132,10 @@
     <div class="col-md-4">
       <div class="panel panel-default">
         <div class="panel-heading">
-          <h4><i class="fa fa-fw fa-compass"></i> Easy to Use</h4>
+          <h4><i class="fa fa-fw fa-compass"></i> 业余学习内容</h4>
         </div>
         <div class="panel-body">
-          <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Itaque, optio corporis quae nulla aspernatur in alias at numquam rerum ea excepturi expedita tenetur assumenda voluptatibus eveniet incidunt dicta nostrum quod?</p>
+          <p>身为一名电子专业出身的同学来说，软件测试是非常的陌生以及不知所措，更不要提灵活应用测试工具以及写代码了！但本人就是喜欢学点计算机的东东，大学期间自学了C语言，工作后先从h5/css/js入手，再后来又学了JAVA、Python、NodeJS...</p>
           <a href="#" class="btn btn-default">Learn More</a>
         </div>
       </div>
@@ -316,6 +232,7 @@
 
 </div>
 <!-- /.container -->
+</div>
 
 <!-- jQuery -->
 <script src="/javascripts/jquery.js"></script>
