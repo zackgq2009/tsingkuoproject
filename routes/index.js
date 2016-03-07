@@ -15,4 +15,8 @@ router.get('/about', function(req, res, next) {
   res.render('about', { title: title, navbarHome: navbarHome });
 });
 
+router.get('/services', function(req, res, next) {
+  res.render('services', { title: title, navbarHome: navbarHome });
+});
+
 module.exports = router;
