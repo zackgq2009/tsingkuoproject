@@ -4,7 +4,7 @@
 <% include head.ejs%>
 
 <body>
-<div class="container-background">
+
 <% include navbar.ejs%>
 
 <!-- Header Carousel -->
@@ -19,19 +19,19 @@
   <!-- Wrapper for slides -->
   <div class="carousel-inner">
     <div class="item active">
-      <div class="fill" style="background-image:url('http://placehold.it/1900x1080&text=Slide One');"><img src="/images/wrapper/life.jpg"></div>
+      <div class="fill" style="background-image:url('/images/wrapper/life.jpg');"></div>
       <div class="carousel-caption">
         <h2>生活</h2>
       </div>
     </div>
     <div class="item">
-      <div class="fill" style="background-image:url('http://placehold.it/1900x1080&text=Slide Two');"><img src="/images/wrapper/work.jpg"></div>
+      <div class="fill" style="background-image:url('/images/wrapper/work.jpg');"></div>
       <div class="carousel-caption">
         <h2>工作</h2>
       </div>
     </div>
     <div class="item">
-      <div class="fill" style="background-image:url('http://placehold.it/1900x1080&text=Slide Three');"><img src="/images/wrapper/study.jpg"></div>
+      <div class="fill" style="background-image:url('/images/wrapper/study.jpg');"></div>
       <div class="carousel-caption">
         <h2>学习</h2>
       </div>
@@ -175,7 +175,6 @@
 
 </div>
 <!-- /.container -->
-</div>
 
 <% include scripts.ejs%>
 
