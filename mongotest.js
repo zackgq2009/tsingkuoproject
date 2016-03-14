@@ -13,9 +13,9 @@ var insertDocument = function(db, callback) {
     db.collection('wordpad').insertOne( {
         "page":"index",
         "module":"page content",
-        "name":"panel",
+        "name":"panel_two",
         "section":"header",
-        "content":"生活经历",
+        "content":"工作经验",
         "createDate":new Date(),
         "updateDate":new Date()
     }, function(err, result) {
@@ -24,6 +24,8 @@ var insertDocument = function(db, callback) {
         callback();
     });
 };
+
+
 //
 //MongoClient.connect(url, function(err, db) {
 //    assert.equal(null, err);
@@ -33,12 +35,13 @@ var insertDocument = function(db, callback) {
 //});
 
 //var findRestaurants = function(db, callback) {
-//    var cursor = db.collection('restaurants').find({ $or :[{"cuisine": "Italian"}, {"address.zipcode": "10075"}]}).sort({"borough":1,"address.zipcode":1});
+//    var cursor = db.collection('wordpad').find({ $and :[{"page": "index"}, {"module": "page content"}, {"name":"panel_one"}, {"section":"header"}]}).sort({"borough":1,"address.zipcode":1});
 //
 //    cursor.forEach(function(doc) {
 //        //assert.equal(null, err);
 //        if(doc != null) {
-//            console.dir(doc); //console.dir针对一个object，对他拥有的所有属性均展示出来
+//            //console.dir(doc); //console.dir针对一个object，对他拥有的所有属性均展示出来
+//            console.log(doc.content);
 //        }
 //        else {
 //            callback();
