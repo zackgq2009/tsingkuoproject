@@ -9,21 +9,21 @@ var url = 'mongodb://localhost:27017/comtsingkuo';
 //    db.close();
 //})
 
-var insertDocument = function(db, callback) {
-    db.collection('wordpad').insertOne( {
-        "page":"index",
-        "module":"page content",
-        "name":"panel_two",
-        "section":"header",
-        "content":"工作经验",
-        "createDate":new Date(),
-        "updateDate":new Date()
-    }, function(err, result) {
-        assert.equal(err, null);
-        console.log("Inserted a document into the restaurants collection.");
-        callback();
-    });
-};
+//var insertDocument = function(db, callback) {
+//    db.collection('wordpad').insertOne( {
+//        "page":"index",
+//        "module":"page content",
+//        "name":"panel_three",
+//        "section":"header",
+//        "content":" 业余学习内容",
+//        "createDate":new Date(),
+//        "updateDate":new Date()
+//    }, function(err, result) {
+//        assert.equal(err, null);
+//        console.log("Inserted a document into the restaurants collection.");
+//        callback();
+//    });
+//};
 
 
 //
@@ -34,22 +34,30 @@ var insertDocument = function(db, callback) {
 //    });
 //});
 
-//var findRestaurants = function(db, callback) {
-//    var cursor = db.collection('wordpad').find({ $and :[{"page": "index"}, {"module": "page content"}, {"name":"panel_one"}, {"section":"header"}]}).sort({"borough":1,"address.zipcode":1});
-//
-//    cursor.forEach(function(doc) {
-//        //assert.equal(null, err);
-//        if(doc != null) {
-//            //console.dir(doc); //console.dir针对一个object，对他拥有的所有属性均展示出来
-//            console.log(doc.content);
-//        }
-//        else {
-//            callback();
-//        }
-//    }, function(err) {
-//        assert.equal(null, err);
-//    });
-//};
+var panels;
+var headers = new Array();
+var bodys = new Array();
+var findPanels = function(db, callback) {
+    var cursor = db.collection('wordpad').find({ $and :[{"page": "index"}, {"module": "page content"}]});
+
+    cursor.toArray(function(err, doc) {
+        assert.equal(err, null);
+        if(doc != null){
+            panels = doc;
+            for(var i=0; i<panels.length; i++){
+                if(panels[i].section == 'header'){
+                    headers.push(panels[i]);
+                } else if(panels[i].section == 'body') {
+                    bodys.push(panels[i]);
+                }
+            }
+            console.log(headers[0]);
+            console.log(bodys[0]);
+        } else {
+            callback;
+        }
+    });
+};
 
 //var updateRestaurants = function(db, callback) {
 //    db.collection('restaurants').updateOne({
@@ -106,7 +114,7 @@ var insertDocument = function(db, callback) {
 
 MongoClient.connect(url, function(err, db) {
     assert.equal(null, err);
-    insertDocument(db, function() {
+    findPanels(db, function() {
         db.close();
     });
 });

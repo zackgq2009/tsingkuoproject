@@ -10,36 +10,40 @@ var assert = require('assert');
 var ObjectId = require('mongodb').ObjectID;
 var url = 'mongodb://localhost:27017/comtsingkuo';
 
-var headerone;
-var bodyone;
+var headers = new Array();
+var bodys = new Array();
+var panels;
 
-var findHeaders = function(db, callback) {
-  var cursor = db.collection('wordpad').find({ $and :[{"page": "index"}, {"module": "page content"}, {"name":"panel_one"}, {"section":"header"}]}).sort({"borough":1,"address.zipcode":1});
+var findPanels = function(db, callback) {
+  var cursor = db.collection('wordpad').find({ $and :[{"page": "index"}, {"module": "page content"}]}).sort({ "name": 1});
 
-  cursor.forEach(function(doc) {
-    //assert.equal(null, err);
-    if(doc != null) {
-      //console.dir(doc); //console.dir针对一个object，对他拥有的所有属性均展示出来
-      headerone = doc.content;
+  cursor.toArray(function(err, doc) {
+    assert.equal(err, null);
+    if(doc != null){
+      panels = doc;
+      for(var i=0; i<panels.length; i++){
+        if(panels[i].section == 'header'){
+          headers.push(panels[i]);
+        } else if(panels[i].section == 'body') {
+          bodys.push(panels[i]);
+        }
+      }
+    } else {
+      callback;
     }
-    else {
-      callback();
-    }
-  }, function(err) {
-    assert.equal(null, err);
   });
 };
 
 MongoClient.connect(url, function(err, db) {
   assert.equal(null, err);
-  findHeaders(db, function() {
+  findPanels(db, function() {
     db.close();
   });
 });
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-  res.render('index', {title: title, navbarHome: navbarHome, info:[{},{}]});
+  res.render('index', {title: title, navbarHome: navbarHome, panels: panels, headers: headers, bodys: bodys});
 });
 
 /* Get the about page. */
@@ -56,6 +60,5 @@ router.get('/services', function(req, res, next) {
 router.get('/contact', function(req, res, next) {
   res.render('contact', {title: title, navbarHome: navbarHome});
 });
-
 
 module.exports = router;

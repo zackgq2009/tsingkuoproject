@@ -51,47 +51,36 @@
 <div class="container container-background">
 
   <!-- Marketing Icons Section -->
-  <each info> item </each>
-  <itemn>.,title.,sged</itemn>
+  <!--<each info> item </each>-->
+  <!--<itemn>.,title.,sged</itemn>-->
   <div class="row">
     <div class="col-lg-12">
       <h1 class="page-header">
         Welcome to <%= title%>
       </h1>
     </div>
-    <div class="col-md-4">
-      <div class="panel panel-default">
-        <div class="panel-heading">
-          <h4><i class="fa fa-fw fa-check"></i> <%= headerone%></h4>
-        </div>
-        <div class="panel-body">
-          <p>在上海已经八个年头，在这八年中经历了许许多多。从我刚毕业开始找工作、第一次换工作、第一次合租房子、第一次在网上交友、有了女朋友、直到与女朋友订婚、结婚。到现在已经跟我心爱的菇凉结婚两年多了~~~</p>
-          <a href="#" class="btn btn-default">Learn More</a>
-        </div>
-      </div>
-    </div>
-    <div class="col-md-4">
-      <div class="panel panel-default">
-        <div class="panel-heading">
-          <h4><i class="fa fa-fw fa-gift"></i> 工作经验 &amp; 工作技能</h4>
-        </div>
-        <div class="panel-body">
-          <p>现在的工作岗位已经是我的第五家公司，也是至今最让我满意的！之前在代工企业、外包公司、小型私有企业、大型国有企业都工作过，积累了一定量的工作经验！现在的公司虽然不大，但是由于工作中总会遇到新的技术、新的挑战，所以工作总是充满了动力！</p>
-          <a href="#" class="btn btn-default">Learn More</a>
-        </div>
-      </div>
-    </div>
-    <div class="col-md-4">
-      <div class="panel panel-default">
-        <div class="panel-heading">
-          <h4><i class="fa fa-fw fa-compass"></i> 业余学习内容</h4>
-        </div>
-        <div class="panel-body">
-          <p>身为一名电子专业出身的同学来说，软件测试是非常的陌生以及不知所措，更不要提灵活应用测试工具以及写代码了！但本人就是喜欢学点计算机的东东，大学期间自学了C语言，工作后先从h5/css/js入手，再后来又学了JAVA、Python、NodeJS...</p>
-          <a href="#" class="btn btn-default">Learn More</a>
+    <% for(var i=0; i<panels.length/2; i++) {%>
+      <div class="col-md-4">
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            <h4><i class="fa fa-fw <% if(headers[i].name == 'panel_1'){%>
+            fa-check
+            <% } %>
+            <% if(headers[i].name == 'panel_2'){%>
+            fa-gift
+            <% } %>
+            <% if(headers[i].name == 'panel_3'){%>
+            fa-compass
+            <% } %>
+            "></i> <%= headers[i].content%></h4>
+          </div>
+          <div class="panel-body">
+            <p><%= bodys[i].content%></p>
+            <a href="#" class="btn btn-default">Learn More</a>
+          </div>
         </div>
       </div>
-    </div>
+    <% } %>
   </div>
   <!-- /.row -->
 
