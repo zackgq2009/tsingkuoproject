@@ -6,26 +6,57 @@ var assert = require('assert');
 var ObjectId = require('mongodb').ObjectID;
 var url = 'mongodb://localhost:27017/comtsingkuo';
 
-var headers = new Array();
-var bodys = new Array();
-var panels;
+var indexPanelHeaders, indexPanelBodys, indexPortfolioItems, indexPanels, indexFeatures;
+var database;
 
 var findPanels = function(db, callback) {
-  headers = [];bodys = [];panels = [];
+  indexPanelHeaders = [];indexPanelBodys = [];indexPanels = [];
 
-  var cursor = db.collection('wordpad').find({ $and :[{"page": "index"}, {"module": "page content"}]}).sort({ "name": 1});
+  var cursor = db.collection('wordpad').find({ $and :[{"page": "index"}, {"module": "panel"}]}).sort({ "name": 1});
 
   cursor.toArray(function(err, doc) {
     assert.equal(err, null);
     if(doc != null){
-      panels = doc;
-      for(var i=0; i<panels.length; i++){
-        if(panels[i].section == 'header'){
-          headers.push(panels[i]);
-        } else if(panels[i].section == 'body') {
-          bodys.push(panels[i]);
+      indexPanels = doc;
+      for(var i=0; i<indexPanels.length; i++){
+        if(indexPanels[i].section == 'header'){
+          indexPanelHeaders.push(indexPanels[i]);
+        } else if(indexPanels[i].section == 'body') {
+          indexPanelBodys.push(indexPanels[i]);
         }
       }
+    } else {
+      db.close();
+    }
+    findIndexPortfolioItems(db, callback);
+  });
+};
+
+var findIndexPortfolioItems = function(db, callback) {
+  indexPortfolioItems = [];
+
+  var cursor = db.collection('images').find({$and: [{"page": "index"}, {"module": "portfolio_item"}]}).sort({"name": -1});
+
+  cursor.toArray(function(err, doc) {
+    assert.equal(err, null);
+    if(doc != null) {
+      indexPortfolioItems = doc;
+    } else {
+      db.close();
+    }
+    findIndexFeatures(db, callback);
+  });
+};
+
+var findIndexFeatures = function(db, callback) {
+  indexFeatures = [];
+
+  var cursor = db.collection('wordpad').find({ $and: [{"page":"index"}, {"module":"features"}]}).sort({ "name" : 1 });
+
+  cursor.toArray(function(err, doc) {
+    assert.equal(err, null);
+    if(doc != null) {
+      indexFeatures = doc;
     } else {
       db.close();
     }
@@ -33,19 +64,23 @@ var findPanels = function(db, callback) {
   });
 };
 
+/* GET the database */
+MongoClient.connect(url, function(err, db) {
+  assert.equal(null, err);
+  database = db;
+});
+
 /* GET home page. */
 router.get('/', function(req, res, next) {
-  MongoClient.connect(url, function(err, db) {
-    assert.equal(null, err);
-    findPanels(db, function() {
-      res.render('index', {panels: panels, headers: headers, bodys: bodys});
-    });
+  findPanels(database, function() {
+    console.log(indexFeatures);
+    res.render('index', {panels: indexPanels, headers: indexPanelHeaders, bodys: indexPanelBodys, items: indexPortfolioItems, features: indexFeatures});
   });
 });
 
 /* Get the about page. */
-router.get('/about', function(req, res, next) {
-  res.render('about');
+router.get('/aboutMe', function(req, res, next) {
+  res.render('aboutMe');
 });
 
 /* Get the services page. */

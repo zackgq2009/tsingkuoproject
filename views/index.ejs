@@ -85,63 +85,41 @@
   <!-- /.row -->
 
   <!-- Portfolio Section -->
+  <!-- original source is src="http://placehold.it/700x450"-->
   <div class="row">
     <div class="col-lg-12">
-      <h2 class="page-header">Portfolio Heading</h2>
+      <h2 class="page-header">生活中的点点滴滴......</h2>
     </div>
+    <% for(var i=0; i<items.length; i++) {%>
     <div class="col-md-4 col-sm-6">
-      <a href="portfolio/portfolio-item">
-        <img class="img-responsive img-portfolio img-hover" src="http://placehold.it/700x450" alt="">
+      <a href="<%= items[i].href%>">
+        <img class="img-responsive img-portfolio img-hover" src="<%= items[i].src%>" alt="<%= items[i].alt%>">
       </a>
     </div>
-    <div class="col-md-4 col-sm-6">
-      <a href="portfolio/portfolio-item">
-        <img class="img-responsive img-portfolio img-hover" src="http://placehold.it/700x450" alt="">
-      </a>
-    </div>
-    <div class="col-md-4 col-sm-6">
-      <a href="portfolio/portfolio-item">
-        <img class="img-responsive img-portfolio img-hover" src="http://placehold.it/700x450" alt="">
-      </a>
-    </div>
-    <div class="col-md-4 col-sm-6">
-      <a href="portfolio/portfolio-item">
-        <img class="img-responsive img-portfolio img-hover" src="http://placehold.it/700x450" alt="">
-      </a>
-    </div>
-    <div class="col-md-4 col-sm-6">
-      <a href="portfolio/portfolio-item">
-        <img class="img-responsive img-portfolio img-hover" src="http://placehold.it/700x450" alt="">
-      </a>
-    </div>
-    <div class="col-md-4 col-sm-6">
-      <a href="portfolio/portfolio-item">
-        <img class="img-responsive img-portfolio img-hover" src="http://placehold.it/700x450" alt="">
-      </a>
-    </div>
+    <% } %>
   </div>
   <!-- /.row -->
 
   <!-- Features Section -->
   <div class="row">
     <div class="col-lg-12">
-      <h2 class="page-header">Modern Business Features</h2>
+      <h2 class="page-header">工作中的方方面面......</h2>
     </div>
     <div class="col-md-6">
-      <p>The Modern Business template by Start Bootstrap includes:</p>
+      <p>零八年开始工作至今，积累了以下工作经验以及工作中所能用到的技能:</p>
       <ul>
-        <li><strong>Bootstrap v3.2.0</strong>
-        </li>
-        <li>jQuery v1.11.0</li>
-        <li>Font Awesome v4.1.0</li>
-        <li>Working PHP contact form with validation</li>
-        <li>Unstyled page elements for easy customization</li>
-        <li>17 HTML pages</li>
+        <% for(var i=0; i<features.length; i++){ %>
+        <% if(i == 0){ %>
+          <li><strong><%= features[i].content%></strong></li>
+        <% } %>
+        <% if(i != 0) {%>
+          <li><%= features[i].content%></li>
+        <% }} %>
       </ul>
       <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Corporis, omnis doloremque non cum id reprehenderit, quisquam totam aspernatur tempora minima unde aliquid ea culpa sunt. Reiciendis quia dolorum ducimus unde.</p>
     </div>
     <div class="col-md-6">
-      <img class="img-responsive" src="http://placehold.it/700x450" alt="">
+      <img class="img-responsive" src="/images/portfolioItem/toyota_yaris.jpg" alt="">
     </div>
   </div>
   <!-- /.row -->
