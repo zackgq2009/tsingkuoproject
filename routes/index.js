@@ -73,7 +73,6 @@ MongoClient.connect(url, function(err, db) {
 /* GET home page. */
 router.get('/', function(req, res, next) {
   findPanels(database, function() {
-    console.log(indexFeatures);
     res.render('index', {panels: indexPanels, headers: indexPanelHeaders, bodys: indexPanelBodys, items: indexPortfolioItems, features: indexFeatures});
   });
 });
