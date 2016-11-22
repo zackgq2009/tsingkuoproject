@@ -20,11 +20,18 @@
             <ol class="breadcrumb">
                 <li><a href="../html_repository/index.html">Home</a>
                 </li>
-                <li class="active">Full Width Page</li>
+                <li class="active"><%= mysqlData%></li>
             </ol>
         </div>
     </div>
     <!-- /.row -->
+
+    <div>
+        <!--<form action="/others/full-width" method="POST">-->
+            <input type="text" id="username" name="username"/>
+            <input type="submit" id="submit" value="submit"/>
+        <!--</form>-->
+    </div>
 
     <!-- Content Row -->
     <div class="row">
@@ -33,6 +40,503 @@
         </div>
     </div>
     <!-- /.row -->
+
+    <div>
+        <button id="createUsers">Click to Create User!</button>
+        <input type="text" id="userName" value="userName"/>
+    </div>
+
+    <div>
+        <button id="createCollection">Click to insert data to Collection</button>
+        <input type="text" value="testData" id="collectionDataName"/>
+        <button id="getData">Click to get Data from Collection!</button>
+        <button id="deleteData">Click to delete Data from Collection!</button>
+        <button id="deleteDatas">Click to delete Datas from Collection!!!</button>
+        <button id="deleteContent">Click to delete content of data!</button>
+    </div>
+    <div>
+        <input type="text" value="updateData" id="collectionDataUpdataName"/>
+        <button id="updateData">Click to updata Data from Collection</button>
+    </div>
+    <div>
+        <button id="getObjectId">Click to get object By ObjectId</button>
+    </div>
+
+    <div>
+        <button id="insertPostData">Click to insert data to POST!!!</button>
+        <input type="text" value="postData" id="postDataName" />
+    </div>
+
+    <div>
+        <button id="postCollection">一对一全新关连</button>
+        <button id="collectionPost">一对一现有全新关连</button>
+        <button id="someCollectionPost">一对多关联</button>
+        <button id="relationCollectionPost">relation关联对象</button>
+        <button id="relationDelete">relation删除一个关联</button>
+        <button id="relationQuery">relation查询关联</button>
+        <button id="queryCollectionPost">关系查询</button>
+        <button id="matchQueryCollectionPost">match关系查询</button>
+    </div>
+
+    <div>
+        <button id="insertAllData">创建一个拥有所有数据类型的数据</button>
+        <input type="text" value="allData" id="allDataName" />
+        <input type="file" id="allDataFile"/>
+        <button id="queryAllData">多种查询条件的查询</button>
+        <button id="geoPointQuery">地理查询</button>
+        <button id="geoBoxQuery">地理矩阵查询</button>
+        <button id="getFileUrl">获取文件url</button>
+        <button id="deleteFile">删除文件内容</button>
+    </div>
+
+    <div>
+        <button id="customEvent">自定义事件</button>
+        <button id="userSignIn">用户注册</button>
+        <button id="userLogin">用户登录</button>
+        <button id="userLogout">用户注销</button>
+        <button id="sessionStart">会话开始</button>
+    </div>
+
+    <script type="text/javascript">
+        $(function() {
+            $('#submit').click(function() {
+                var params = {
+                    name: $('#username').val()
+                }
+                $.ajax({
+                    data: params,
+                    url: '/others/full-width',
+                    type: 'post',
+                    timeout: 5000,
+                    success: function(data){
+                        console.log(data);
+                        if(data!= null) {
+                            if(data.affectedRows > 0) {
+                                window.location.reload();
+                            }
+                        }
+                    },
+                    error: function(jqXHR, textStatus, errorThrown) {
+                        alert('error' + textStatus + " " + errorThrown);
+                    }
+                })
+            })
+        });
+    </script>
+
+    <script type="text/javascript">
+        var Collection = ML.Object.extend('Collection');
+        var Post = ML.Object.extend('POST');
+        var All = ML.Object.extend('ALL');
+
+        var options = {
+            appId: '5731639d70c6760001495121',
+            userId: '5731789d667a230001e564ee',
+            appVersion: '1.0'
+        }
+
+        var analytics = new ML.Analytics(options);
+        document.getElementById('customEvent').addEventListener('click', function() {
+            var age = 18;
+            var data = {"gender": "male", "age": 18};
+            analytics.trackEvent('userEvent', data);
+        })
+
+        document.getElementById('userSignIn').addEventListener('click', function() {
+            var data = {
+                eventId: 'registereventid'
+//                eventName: '',
+//                eventNickName: ''
+            }
+            analytics.trackUserRegister(data);
+        })
+
+        document.getElementById('userLogin').addEventListener('click', function() {
+            var data = {
+                eventId: 'logineventid'
+//                eventName: '',
+//                eventNickName: ''
+            }
+            analytics.trackUserlogin(data);
+        })
+
+        document.getElementById('userLogout').addEventListener('click', function() {
+            var data = {
+                eventId: 'logouteventid'
+//                eventName: '',
+//                eventNickName: ''
+            }
+            analytics.trackUserLogout(data);
+        })
+
+        document.getElementById('sessionStart').addEventListener('click', function() {
+            var data = {
+                eventId: 'sessionstartid'
+//                eventName: '',
+//                eventNickName: ''
+            }
+            analytics.trackSessionStart(data);
+        })
+
+        document.getElementById('createUsers').addEventListener('click', function() {
+            var userName = document.getElementById('userName').value;
+            var user = new ML.User();
+            user.set('username', userName);
+            user.set('password', userName + 'password');
+            user.set('email', userName + '@example.com');
+            user.signUp().then(function(){
+                console.log('success!!!');
+            });
+        });
+
+//        document.getElementById('createCollection').addEventListener('click', function() {
+//            var collectionDataName = document.getElementById('collectionDataName').value;
+//            var collectionData = new Collection();
+//            collectionData.set('name', collectionDataName);
+//            collectionData.set('discription', 'discriptionXXXXXXXX');
+//            collectionData.save().then(function() {
+//                console.log('success insert data to Collection');
+//            });
+//        });
+
+        //Create New Collection
+        $(document).ready(function() {
+            $("#createCollection").click(function () {
+                var collectionDataName = $("#collectionDataName").val();
+                var collectionData = new Collection();
+                collectionData.set('name', collectionDataName);
+                collectionData.set('discription', 'discriptionXXXXXXXX');
+                collectionData.save().then(function () {
+                    console.log('success insert data to Collection');
+                })
+            })
+        })
+
+        document.getElementById('getObjectId').addEventListener('click', function() {
+            var collectionDataQuery = new ML.Query(Collection);
+            collectionDataQuery.get('57319d44169e7d00017f635a').then(function(comment) {
+                console.log(comment);
+                console.log(comment.get('name'));
+            })
+        });
+
+        //Get Collection
+        document.getElementById('getData').addEventListener('click', function() {
+            var collectionDataName = document.getElementById('collectionDataName').value;
+            var collectionDataQuery = new ML.Query(Collection);
+            collectionDataQuery.exists('name');
+            collectionDataQuery.equalTo('name', collectionDataName);
+            collectionDataQuery.select('name', 'objectId');
+            collectionDataQuery.find().then(function(result) {
+                result.fetch().then(function(obj) {
+                    console.log(obj);
+                });
+            });
+        });
+
+        document.getElementById('updateData').addEventListener('click', function() {
+            var collectionDataUpdataName = document.getElementById('collectionDataUpdataName').value;
+            var collectionDataQuery = new ML.Query(Collection);
+            collectionDataQuery.get('573293f7169e7d000180007d').then(function(comment) {
+                console.log(comment);
+                comment.set('name', collectionDataUpdataName);
+                comment.increment('number', 5);
+//                comment.add('array', ['array007']);
+//                comment.remove('array', 'array003');
+//                comment.addUnique('array', 'array003');
+//                comment.addUnique('array', 'array004');
+                comment.save().then(function(comment) {
+                    debugger;
+                    console.log(comment);
+                }, function(error) {
+                    console.error(error);
+                })
+            })
+        })
+
+        document.getElementById('deleteData').addEventListener('click', function() {
+            var collectionDataName = document.getElementById('collectionDataName').value;
+            var collectionDataQuery = new ML.Query(Collection);
+            collectionDataQuery.equalTo('name', collectionDataName);
+            collectionDataQuery.first().then(function(comment) {
+                comment.destroy().then(function(result) {
+                    console.log('success destroy this comment from collection!');
+                }, function(err) {
+                    console.error(err);
+                });
+            });
+        });
+
+        document.getElementById('deleteDatas').addEventListener('click', function() {
+            var collectionDataName = document.getElementById('collectionDataName').value;
+            var collectionDataQuery = new ML.Query(Collection);
+            collectionDataQuery.equalTo('name', collectionDataName);
+            collectionDataQuery.find().then(function(comments) {
+                ML.Object.destroyAll(comments, function(result) {
+                    console.log(result);
+                })
+            })
+        })
+
+        document.getElementById('deleteContent').addEventListener('click', function() {
+            var collectionDataName = document.getElementById('collectionDataName').value;
+            var collectionDataQuery = new ML.Query(Collection);
+            collectionDataQuery.equalTo('name', collectionDataName);
+            collectionDataQuery.first().then(function(comment) {
+                comment.unset('discription');
+                comment.save().then(function(result) {
+                    console.log(result);
+                })
+            })
+        })
+
+        document.getElementById('insertPostData').addEventListener('click', function() {
+            var postDataName = document.getElementById('postDataName').value;
+            var postData = new Post();
+            postData.set('name', postDataName);
+            postData.save().then(function(result) {
+                console.log(result);
+            })
+        })
+
+        document.getElementById('postCollection').addEventListener('click', function() {
+            var postDataName =document.getElementById('postDataName').value;
+            var collectionDataName = document.getElementById('collectionDataName').value;
+            var collectionData = new Collection();
+            var postData = new Post();
+            postData.set('name', postDataName);
+            collectionData.set('name', collectionDataName);
+            collectionData.add('post', postData);
+            collectionData.save().then(function(result) {
+                console.log(result);
+            })
+        })
+
+        document.getElementById('collectionPost').addEventListener('click', function() {
+            var postDataName =document.getElementById('postDataName').value;
+            var collectionDataName = document.getElementById('collectionDataName').value;
+            var postDataQuery = new ML.Query(Post);
+            postDataQuery.equalTo('name', postDataName);
+            postDataQuery.first().then(function(comment) {
+                console.log(comment.get('name'));
+//                debugger;
+                var postData = new ML.Object.createWithoutData('POST', comment.id);
+//                debugger;
+                var collectionData = new Collection();
+//                debugger;
+                collectionData.set('name', collectionDataName);
+//                debugger;
+                collectionData.add('post', postData);
+//                debugger;
+                collectionData.save().then(function(result) {
+//                    debugger;
+                    console.log(result);
+                })
+            })
+        })
+
+        document.getElementById('someCollectionPost').addEventListener('click', function() {
+            var postDataName =document.getElementById('postDataName').value;
+            var collectionDataName = document.getElementById('collectionDataName').value;
+            var collectionData = new Collection();
+            var postData1 = new Post();
+            postData1.set('name', postDataName);
+            var postData2 = new Post();
+            postData2.set('name', postDataName+'1');
+            collectionData.set('name', collectionDataName);
+            collectionData.add('post', postData1);
+            collectionData.add('post', postData2)
+            collectionData.save().then(function(result) {
+                console.log(result);
+            })
+        })
+
+        document.getElementById('insertAllData').addEventListener('click', function() {
+            var allDataName = document.getElementById('allDataName').value;
+            var allDataFile = document.getElementById('allDataFile');
+            var number = 123, date = new Date(), array = ['a', 'b'], object = {name: 'test'}
+            var geoPoint = new ML.GeoPoint(40, -30);
+            var allData = new All();
+            if(allDataFile.files.length > 0) {
+                debugger;
+                var file = allDataFile.files[0];
+                var name = 'avatar.jpg';
+                var MLfile = new ML.File(name, file);
+                allData.set('file', MLfile);
+            }
+            allData.set('name', allDataName);
+            allData.set('boolean', false);
+            allData.set('number', number);
+            allData.set('date', date);
+            allData.set('array', array);
+            allData.set('object', object);
+            allData.set('geoPoint', geoPoint);
+            allData.save().then(function(result) {
+                debugger;
+                console.log(result.url());
+                console.log(result);
+            })
+        })
+
+        document.getElementById('queryAllData').addEventListener('click', function() {
+            var allDataName = document.getElementById('allDataName').value;
+            var allDataQuery = new ML.Query(All);
+            allDataQuery.greaterThanOrEqualTo('number', 100);
+            allDataQuery.lessThanOrEqualTo('number', 200);
+            allDataQuery.containedIn('name', [allDataName, 'allData200']);
+            allDataQuery.skip(2);
+            allDataQuery.limit(10);
+            allDataQuery.equalTo('array', 'a');
+            allDataQuery.equalTo('array', ['a', 'b']);
+            allDataQuery.sizeEqualTo('array', 2);
+            allDataQuery.startsWith('name', 'allData');
+            allDataQuery.ascending('number');
+            allDataQuery.descending('date');
+            allDataQuery.find().then(function(result) {
+                console.log(result);
+            })
+        })
+
+        document.getElementById('queryCollectionPost').addEventListener('click', function() {
+            var postDataName =document.getElementById('postDataName').value;
+            var collectionDataName = document.getElementById('collectionDataName').value;
+            var collectionDataQuery = new ML.Query(Collection);
+            var postDataQuery = new ML.Query(Post);
+            postDataQuery.equalTo('name', postDataName);
+            postDataQuery.first().then(function(comment) {
+                collectionDataQuery.equalTo('post', comment);
+                collectionDataQuery.find().then(function(result) {
+                    console.log(result);
+                })
+            })
+        })
+
+        document.getElementById('matchQueryCollectionPost').addEventListener('click', function() {
+            var postDataName =document.getElementById('postDataName').value;
+            var collectionDataName = document.getElementById('collectionDataName').value;
+            var postDataQuery = new ML.Query(Post);
+            var collectionDataQuery = new ML.Query(Collection);
+            postDataQuery.equalTo('name', postDataName);
+            collectionDataQuery.matchesQuery('post', postDataQuery);
+            collectionDataQuery.find().then(function(comments) {
+                console.log(comments);
+            })
+        })
+
+        document.getElementById('relationCollectionPost').addEventListener('click', function() {
+            var postDataName =document.getElementById('postDataName').value;
+            var collectionDataName = document.getElementById('collectionDataName').value;
+            var collectionData = new Collection();
+//            var postData001 = new Post();
+//            var postData002 = new Post();
+//            var postData003 = new Post();
+//            postData001.set('name', postDataName);
+//            postData002.set('name', postDataName+'2');
+//            postData003.set('name', postDataName + '3');
+//            var postData = new Array();
+//            postData.push(postData001);
+//            postData.push(postData002);
+//            postData.push(postData003);
+//            var relation = collectionData.relation('relation');
+//            relation.add(postData);
+//            collectionData.save().then(function(result) {
+//                console.log(result);
+//            })
+            var postQueryData = new ML.Query(Post);
+            postQueryData.equalTo('name', postDataName);
+//            debugger;
+            postQueryData.find().then(function(comments) {
+//                debugger;
+                console.log(comments);
+                var relation = collectionData.relation('relation');
+//                debugger;
+                relation.add(comments);
+//                debugger;
+                collectionData.set('name', collectionDataName);
+                collectionData.save().then(function(result) {
+//                    debugger;
+                    console.log(result);
+                })
+            })
+        })
+
+        document.getElementById('relationDelete').addEventListener('click', function() {
+            var postDataName =document.getElementById('postDataName').value;
+            var collectionDataName = document.getElementById('collectionDataName').value;
+            var postQueryData = new ML.Query(Post);
+            postQueryData.equalTo('name', postDataName);
+            var collectionQueryData = new ML.Query(Collection);
+            collectionQueryData.equalTo('name', collectionDataName);
+            postQueryData.first().then(function(comment) {
+                debugger;
+                collectionQueryData.first().then(function(collection) {
+                    var relation = collection.relation('relation');
+                    relation.remove(comment);
+                    debugger;
+                    collection.save().then(function(result) {
+                        console.log(result);
+                    })
+                })
+            })
+        })
+
+        document.getElementById('relationQuery').addEventListener('click', function() {
+//            var postDataName =document.getElementById('postDataName').value;
+            var collectionDataName = document.getElementById('collectionDataName').value;
+            var collectionQueryData = new ML.Query(Collection);
+            collectionQueryData.equalTo('name', collectionDataName);
+            debugger;
+            collectionQueryData.first().then(function(comment) {
+                debugger;
+                var relation = comment.relation('relation');
+                debugger;
+                relation.query().find().then(function(result) {
+                    debugger;
+                    console.log(result);
+                })
+            })
+        })
+
+        document.getElementById('geoPointQuery').addEventListener('click', function() {
+            var allQueryData = new ML.Query(All);
+            allQueryData.get('5731ab5d169e7d00017f6cfb').then(function(comment) {
+                var geoPoint = comment.get('geoPoint');
+                var allQueryData002 = new ML.Query(All);
+                allQueryData002.near('geoPoint', geoPoint);
+                allQueryData002.find().then(function(result) {
+                    console.log(result);
+                })
+            })
+        })
+
+        document.getElementById('geoBoxQuery').addEventListener('click', function() {
+            var allQueryData = new ML.Query(All);
+            var southwest = new ML.GeoPoint(37, -27);
+            var nottheast = new ML.GeoPoint(41, -31);
+            allQueryData.withinGeoBox('geoPoint', southwest, nottheast);
+            allQueryData.find().then(function(comments) {
+                console.log(comments);
+            })
+        })
+
+        document.getElementById('getFileUrl').addEventListener('click', function() {
+            var allQueryData = new ML.Query(All);
+            allQueryData.get('5731a5cca5ff7f00017830f8').then(function(comment) {
+                console.log(comment.get('file').url());
+            })
+        })
+
+        document.getElementById('deleteFile').addEventListener('click', function() {
+            var allQueryData = new ML.Query(All);
+            var allDataName = document.getElementById('allDataName').value;
+            allQueryData.equalTo('name', allDataName);
+            allQueryData.first().then(function(comment) {
+                debugger;
+                comment.get('file').destroy();
+                debugger;
+            })
+        })
+    </script>
 
     <hr>
 
@@ -45,5 +549,6 @@
 <% include scripts.ejs%>
 
 </body>
+
 
 </html>
