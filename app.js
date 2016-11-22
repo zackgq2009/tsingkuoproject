@@ -4,6 +4,7 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
+var fs = require('fs');
 
 var index = require('./routes/index');
 var users = require('./routes/users');
@@ -35,6 +36,7 @@ app.use('/', index);
 app.use(function(req, res, next) {
   var err = new Error('Not Found');
   err.status = 404;
+  res.render('404');
   next(err);
 });
 
@@ -51,6 +53,13 @@ if (app.get('env') === 'development') {
     });
   });
 }
+
+// app.configure('production', function() {
+//     app.error(function(err, req, res, next) {
+//         var meta = '[' + new Data() + ']' + req.url + '\n';
+//
+//     })
+// })
 
 // production error handler
 // no stacktraces leaked to user
