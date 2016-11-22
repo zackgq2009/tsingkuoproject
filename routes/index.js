@@ -95,8 +95,8 @@ router.get('/contact', function(req, res, next) {
 /*
 get the proxy.pac file
  */
-router.get('/proxy.pac', function(req, res, next) {
-  return "SOCKS 10.10.0.157:8889";
-});
+// router.get('/proxy.pac', function() {
+//   return "SOCKS 10.10.0.157:8889";
+// });
 
 module.exports = router;
