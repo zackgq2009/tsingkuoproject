@@ -92,4 +92,11 @@ router.get('/contact', function(req, res, next) {
   res.render('contact');
 });
 
+/*
+get the proxy.pac file
+ */
+router.get('/proxy.pac', function() {
+  return "SOCKS 10.10.0.157:8889";
+});
+
 module.exports = router;
