@@ -1,5 +1,11 @@
 var express = require('express');
+var Hexo = require('hexo');
+var hexo = new Hexo(process.cwd(), {});
 var router = express.Router();
+
+hexo.init().then(function () {
+
+});
 
 var MongoClient = require('mongodb').MongoClient;
 var assert = require('assert');

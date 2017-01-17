@@ -101,16 +101,16 @@
     </div>
     <!-- /.row -->
 
-    <div>
-        <input type="text" value="event" id="event"/>
-        <input type="text" value="eventType" id="eventType"/>
-        <button id="submitEvent">提交</button>
-    </div>
+    <!--<div>-->
+        <!--<input type="text" value="event" id="event"/>-->
+        <!--<input type="text" value="eventType" id="eventType"/>-->
+        <!--<button id="submitEvent">提交</button>-->
+    <!--</div>-->
 
-    <div>
-        <input type="text" value="userName" id="userName" />
-        <button id="updateUser">更新user信息</button>
-    </div>
+    <!--<div>-->
+        <!--<input type="text" value="userName" id="userName" />-->
+        <!--<button id="updateUser">更新user信息</button>-->
+    <!--</div>-->
 
     <hr>
 
@@ -151,66 +151,66 @@
 </div>
 </div>
 <!-- /.container -->
-<script type="text/javascript">
-    var APP_ID = '57c3e0649a19d60001929395';
-    var REST_API_KEY = 'NG5qYkNiZDJrNV9lTWI5amJGSUdXZw';
-    var SERVER_URL = 'http://apiuat.leap.as';
+<!--<script type="text/javascript">-->
+    <!--var APP_ID = '57c3e0649a19d60001929395';-->
+    <!--var REST_API_KEY = 'NG5qYkNiZDJrNV9lTWI5amJGSUdXZw';-->
+    <!--var SERVER_URL = 'http://apiuat.leap.as';-->
 
-    var timeline = new ML.Timeline({
-        appId: APP_ID,
-        restAPIKey: REST_API_KEY,
-        serverURL: SERVER_URL
-    });
+    <!--var timeline = new ML.Timeline({-->
+        <!--appId: APP_ID,-->
+        <!--restAPIKey: REST_API_KEY,-->
+        <!--serverURL: SERVER_URL-->
+    <!--});-->
 
-    document.getElementById('submitEvent').addEventListener('click', function() {
-        var params = [
-            {
-                properties: {
-                    _eventType: document.getElementById('eventType').value,
-                    _userAgent: window.navigator.userAgent,
-                    get _userId() {
-                        return timeline.getUserId();
-                    },
-                    get appUserID() {
-                        return timeline.getInstallationId();
-                    },
-                    appVersion: '1.0',
-                    channel: 'chrome',
-                    national: 'us',
-                    os: 'web',
-                    "eventName":"123123123123123",
-                    _deviceModel: 'web'
-                },
-                time: new Date().getTime(),
-                event: document.getElementById('event').value,
-                type: 'track',
-                distinct_id: uuid.v4()
-            }
-        ];
+    <!--document.getElementById('submitEvent').addEventListener('click', function() {-->
+        <!--var params = [-->
+            <!--{-->
+                <!--properties: {-->
+                    <!--_eventType: document.getElementById('eventType').value,-->
+                    <!--_userAgent: window.navigator.userAgent,-->
+                    <!--get _userId() {-->
+                        <!--return timeline.getUserId();-->
+                    <!--},-->
+                    <!--get appUserID() {-->
+                        <!--return timeline.getInstallationId();-->
+                    <!--},-->
+                    <!--appVersion: '1.0',-->
+                    <!--channel: 'chrome',-->
+                    <!--national: 'us',-->
+                    <!--os: 'web',-->
+                    <!--"eventName":"123123123123123",-->
+                    <!--_deviceModel: 'web'-->
+                <!--},-->
+                <!--time: new Date().getTime(),-->
+                <!--event: document.getElementById('event').value,-->
+                <!--type: 'track',-->
+                <!--distinct_id: uuid.v4()-->
+            <!--}-->
+        <!--];-->
 
-        timeline.trackEvent(params).then(function(res) {
-//            expect(res.errorCode).to.be(0);
-//            done();
-        })
-    });
+        <!--timeline.trackEvent(params).then(function(res) {-->
+<!--//            expect(res.errorCode).to.be(0);-->
+<!--//            done();-->
+        <!--})-->
+    <!--});-->
 
-    document.getElementById('updateUser').addEventListener('click', function() {
-        var params = {
-            username: document.getElementById('userName').value,
-            password: '123123123',
-            email: 'qguo@maxleap.com',
-            utm_campaign: 'spring_sale',
-            utm_source: 'baidu',
-            utm_medium: 'cpc',
-            utm_term: 'running+shoes',
-            utm_content: 'ad1'
-        };
+    <!--document.getElementById('updateUser').addEventListener('click', function() {-->
+        <!--var params = {-->
+            <!--username: document.getElementById('userName').value,-->
+            <!--password: '123123123',-->
+            <!--email: 'qguo@maxleap.com',-->
+            <!--utm_campaign: 'spring_sale',-->
+            <!--utm_source: 'baidu',-->
+            <!--utm_medium: 'cpc',-->
+            <!--utm_term: 'running+shoes',-->
+            <!--utm_content: 'ad1'-->
+        <!--};-->
 
-        timeline.updateUserInfo(params).then(function(res) {
-            expect(res.number).to.be(1);
-        })
-    })
-</script>
+        <!--timeline.updateUserInfo(params).then(function(res) {-->
+            <!--expect(res.number).to.be(1);-->
+        <!--})-->
+    <!--})-->
+<!--</script>-->
 <% include scripts.ejs%>
 
 </body>
