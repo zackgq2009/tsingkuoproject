@@ -1,5 +1,5 @@
 var express = require('express');
-var Hexo = require('hexo');
+var Hexo = require('../blog/node_modules/hexo');
 var hexo = new Hexo(process.cwd(), {});
 var router = express.Router();
 
