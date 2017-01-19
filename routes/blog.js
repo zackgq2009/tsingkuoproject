@@ -17,7 +17,7 @@ router.get('/blog-post', function(req, res, next) {
 });
 
 // router.get('/ghost-blog', function (req, res, next) {
-//     res.render('')
+//     res.render('http://localhost:2368/');
 // });
 
 module.exports = router;

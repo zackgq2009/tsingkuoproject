@@ -98,6 +98,10 @@ router.get('/contact', function(req, res, next) {
   res.render('contact');
 });
 
+router.get('/blog', function (req, res, next) {
+  res.redirect('http://blog.tsingkuo.com');
+});
+
 /*
 get the proxy.pac file
  */
