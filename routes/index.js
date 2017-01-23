@@ -99,7 +99,7 @@ router.get('/contact', function(req, res, next) {
 });
 
 router.get('/blog', function (req, res, next) {
-  res.redirect('http://blog.tsingkuo.com');
+  res.redirect('http://127.0.0.1:2368');
 });
 
 /*
