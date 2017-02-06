@@ -1,12 +1,5 @@
 var express = require('express');
-var Hexo = require('../blog/node_modules/hexo');
-var hexo = new Hexo(process.cwd(), {});
 var router = express.Router();
-
-hexo.init().then(function () {
-
-});
-
 var MongoClient = require('mongodb').MongoClient;
 var assert = require('assert');
 var ObjectId = require('mongodb').ObjectID;
@@ -76,10 +69,21 @@ MongoClient.connect(url, function(err, db) {
   database = db;
 });
 
+
+/* get sqlite3 database */
+var dbFile = '/Users/johnny/Documents/workspace/nodeJS/Ghost-0.11.4/content/data/ghost-dev.db';
+var posts = require('posts');
+var postList = new Array();
+posts.getRows(dbFile, function(rows) {
+  postList = rows;
+});
+
+posts.getPictures(dbFile);
+
 /* GET home page. */
 router.get('/', function(req, res, next) {
   findPanels(database, function() {
-    res.render('index', {panels: indexPanels, headers: indexPanelHeaders, bodys: indexPanelBodys, items: indexPortfolioItems, features: indexFeatures});
+    res.render('index', {panels: indexPanels, headers: indexPanelHeaders, bodys: indexPanelBodys, items: indexPortfolioItems, features: indexFeatures, posts: postList});
   });
 });
 
