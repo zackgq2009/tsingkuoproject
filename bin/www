@@ -6,12 +6,13 @@
 
 var app = require('../app');
 var debug = require('debug')('tsingkuoproject:server');
-var https = require('https');
+var http = require('http');
 
-var fs = require('fs');
-var privateKey = fs.readFileSync('./files/private.pem', 'utf8');
-var certificate = fs.readFileSync('./files/file.crt', 'utf8');
-var credentials = {key: privateKey, cert: certificate};
+// var fs = require('fs');
+// var privateKey = fs.readFileSync('./files/private.pem', 'utf8');
+// var certificate = fs.readFileSync('./files/file.crt', 'utf8');
+// var credentials = {key: privateKey, cert: certificate};
+
 /**
  * Get port from environment and store in Express.
  */
@@ -24,7 +25,7 @@ app.set('port', port);
  */
 
 // var server = https.createServer(app);
-var server = https.createServer(credentials, app);
+var server = http.createServer(app);
 
 /**
  * Listen on provided port, on all network interfaces.
