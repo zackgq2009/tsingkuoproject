@@ -71,7 +71,7 @@ MongoClient.connect(url, function(err, db) {
 
 
 /* get sqlite3 database */
-var dbFile = '/Users/johnny/Documents/workspace/nodeJS/Ghost-0.11.4/content/data/ghost-dev.db';
+var dbFile = '/root/documents/ghostBlog/content/data/ghost-dev.db';
 var posts = require('posts');
 var postList = new Array();
 posts.getRows(dbFile, function(rows) {
